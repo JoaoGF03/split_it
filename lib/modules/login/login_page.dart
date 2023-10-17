@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:split_it/modules/login/widgets/social_button.dart';
 import 'package:split_it/theme/app_theme.dart';
 
@@ -46,19 +47,33 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const SizedBox(height: 32),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 32),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 32),
                   child: SocialButtonWidget(
                     imagePath: 'assets/images/google.png',
                     label: 'Entrar com Google',
+                    onTap: () async {
+                      GoogleSignIn googleSignIn = GoogleSignIn(
+                        scopes: ['email'],
+                      );
+
+                      try {
+                        final response = await googleSignIn.signIn();
+
+                        print(response);
+                      } catch (error) {
+                        print(error);
+                      }
+                    },
                   ),
                 ),
                 const SizedBox(height: 12),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 32),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 32),
                   child: SocialButtonWidget(
                     imagePath: 'assets/images/apple.png',
                     label: 'Entrar com Apple',
+                    onTap: () {},
                   ),
                 ),
               ],
